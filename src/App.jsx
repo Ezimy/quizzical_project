@@ -7,18 +7,29 @@ import '/src/index.css';
 export default function App() {
   const [started, setStarted] = useState(false);
   const [questions, setQuestions] = useState([])
-
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [correctAnswerCount, setCorrectAnswerCount] = useState(0)
   useEffect(() => {
-
     // Set the body style based on whether Start is rendered
     document.body.style.justifyContent = started ? 'flex-start' : 'center';
-
     // Cleanup the style when the component unmounts
     return () => {
       document.body.style.justifyContent = 'initial';
     };
   }, [started]);
-
+  useEffect(() => {
+    // Count correct answers whenever selectedAnswers changes
+    let count = 0;
+    questions.forEach((question, index) => {
+      const correctAnswer = question.correct_answer;
+      const selectedAnswer = selectedAnswers[index];
+      if (correctAnswer === selectedAnswer) {
+        count++;
+      }
+    })
+    setCorrectAnswerCount(count);
+  }, [selectedAnswers]);
+  //Handle functions
   function fetchQuestions() {
     fetch('https://opentdb.com/api.php?amount=5&type=multiple')
       .then((res) => res.json())
@@ -38,6 +49,12 @@ export default function App() {
     setStarted(true)
     fetchQuestions()
   }
+  function handleAnswerChange(questionId, selectedAnswer) {
+    setSelectedAnswers((prevSelectedAnswers) => ({
+      ...prevSelectedAnswers,
+      [questionId]: selectedAnswer,
+    }))
+  }
   function shuffleArray(array) {
     // Function to shuffle an array using Fisher-Yates algorithm
     for (let i = array.length - 1; i > 0; i--) {
@@ -46,6 +63,7 @@ export default function App() {
     }
     return array;
   }
+  //creating question Elements for question container
   const questionElements = questions.map((question, index) => (
     <Question
       key={index}
@@ -54,13 +72,16 @@ export default function App() {
       shuffled_answers={question.shuffled_answers}
       incorrect_answers = {question.incorrect_answers}
       correct_answer={question.correct_answer}
+      selectedAnswer={selectedAnswers[index]}
+      onAnswerChange={handleAnswerChange}
     />
-  ));
+    ))
   return(
     <main>
       {started ? 
       <form className='questions-container'>
         {questionElements}
+        <h1>{correctAnswerCount}</h1>
         <button>Check Answers</button>
       </form>
       : <Start handleStartBtn = {handleStartBtn}/>}

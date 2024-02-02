@@ -74,11 +74,20 @@ main{
   display: flex;
   gap: 0.5rem
 }
-.choice{
+/* Style radio buttons as regular buttons */
+.choice-radio {
   color: blue;
   padding: 0.5rem;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   border: 1px solid blue;
+  cursor: pointer;
+}
+
+.choice-radio input[type="radio"] {
+  display: none;
+}
+.choice-radio.selected{
+  background-color: lightblue;
 }
 button{
   width: 400px;
