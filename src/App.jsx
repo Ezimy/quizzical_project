@@ -9,6 +9,8 @@ export default function App() {
   const [questions, setQuestions] = useState([])
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  //useEffects
   useEffect(() => {
     // Set the body style based on whether Start is rendered
     document.body.style.justifyContent = started ? 'flex-start' : 'center';
@@ -29,6 +31,7 @@ export default function App() {
     })
     setCorrectAnswerCount(count);
   }, [selectedAnswers]);
+
   //Handle functions
   function fetchQuestions() {
     fetch('https://opentdb.com/api.php?amount=5&type=multiple')
@@ -49,6 +52,17 @@ export default function App() {
     setStarted(true)
     fetchQuestions()
   }
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    setIsSubmitted(true)
+    // questions.forEach((question, index) => {
+    //   const correctAnswer = question.correct_answer;
+    //   const selectedAnswer = selectedAnswers[index];
+    //   if (correctAnswer === selectedAnswer) {
+    //   }
+    // })
+    console.log("submitted")
+  };
   function handleAnswerChange(questionId, selectedAnswer) {
     setSelectedAnswers((prevSelectedAnswers) => ({
       ...prevSelectedAnswers,
@@ -74,15 +88,23 @@ export default function App() {
       correct_answer={question.correct_answer}
       selectedAnswer={selectedAnswers[index]}
       onAnswerChange={handleAnswerChange}
+      isSubmitted={isSubmitted}
     />
     ))
   return(
     <main>
       {started ? 
-      <form className='questions-container'>
+      <form className='questions-container' onSubmit={handleSubmit}>
         {questionElements}
-        <h1>{correctAnswerCount}</h1>
-        <button>Check Answers</button>
+        {isSubmitted ? 
+          (
+          <>
+          <div className='answer-count'>Correct Answers: {correctAnswerCount} / {questions.length}</div>
+          <button>Play Again</button>
+          </>)
+          :
+          (<button type='submit'>Check Answers</button>)
+        }
       </form>
       : <Start handleStartBtn = {handleStartBtn}/>}
     </main>

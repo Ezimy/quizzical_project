@@ -76,10 +76,10 @@ main{
 }
 /* Style radio buttons as regular buttons */
 .choice-radio {
-  color: blue;
+  color: #293264;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  border: 1px solid blue;
+  border: 1px solid #4D5B9E;
   cursor: pointer;
 }
 
@@ -99,4 +99,16 @@ button{
   background-color: #4D5B9E;
   font-weight: 700;
   border-radius: 1rem;
+}
+.answer-count{
+  margin: 1rem auto 0 auto;
+}
+.choice-radio.incorrect {
+  background-color: #F8BCBC;
+  border: none;
+}
+
+.choice-radio.correct {
+  border: none;
+  background-color: #94D7A2;
 }
