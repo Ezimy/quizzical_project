@@ -12,8 +12,8 @@ export default function Question(props) {
         type="radio"
         name={`answer_${props.id}`} // Use a unique name for each question
         value={decode(answer)}
-        onChange={() => props.onAnswerChange(props.id, decode(answer))}
-        // className={props.isSubmitted && props.correct_answer === decode(answer) ? 'correct' : ''}
+        onChange={() => !props.isSubmitted && props.onAnswerChange(props.id, decode(answer))}
+        disabled={props.isSubmitted}
       />
       {decode(answer)}
     </label>

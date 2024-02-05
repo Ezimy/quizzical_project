@@ -5,16 +5,18 @@ import { decode } from 'html-entities';
 import '/src/index.css';
 
 export default function App() {
+  //useStates
   const [started, setStarted] = useState(false);
   const [questions, setQuestions] = useState([])
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0)
   const [isSubmitted, setIsSubmitted] = useState(false)
+
+
   //useEffects
   useEffect(() => {
     // Set the body style based on whether Start is rendered
     document.body.style.justifyContent = started ? 'flex-start' : 'center';
-    // Cleanup the style when the component unmounts
     return () => {
       document.body.style.justifyContent = 'initial';
     };
@@ -31,6 +33,7 @@ export default function App() {
     })
     setCorrectAnswerCount(count);
   }, [selectedAnswers]);
+
 
   //Handle functions
   function fetchQuestions() {
@@ -55,12 +58,6 @@ export default function App() {
   const handleSubmit = (event) => {
     event.preventDefault()
     setIsSubmitted(true)
-    // questions.forEach((question, index) => {
-    //   const correctAnswer = question.correct_answer;
-    //   const selectedAnswer = selectedAnswers[index];
-    //   if (correctAnswer === selectedAnswer) {
-    //   }
-    // })
     console.log("submitted")
   };
   function handleAnswerChange(questionId, selectedAnswer) {
@@ -69,14 +66,24 @@ export default function App() {
       [questionId]: selectedAnswer,
     }))
   }
+  function handleResetQuiz(){
+    setStarted(false)
+    fetchQuestions()
+    setSelectedAnswers({})
+    setCorrectAnswerCount(0)
+    setIsSubmitted(false)
+  }
+
+  // Helper Function to shuffle an array using Fisher-Yates algorithm
   function shuffleArray(array) {
-    // Function to shuffle an array using Fisher-Yates algorithm
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
   }
+
+  
   //creating question Elements for question container
   const questionElements = questions.map((question, index) => (
     <Question
@@ -100,10 +107,10 @@ export default function App() {
           (
           <>
           <div className='answer-count'>Correct Answers: {correctAnswerCount} / {questions.length}</div>
-          <button>Play Again</button>
+          <button onClick={handleResetQuiz}>Play Again</button>
           </>)
           :
-          (<button type='submit'>Check Answers</button>)
+          (<button className="submit"type='submit'>Check Answers</button>)
         }
       </form>
       : <Start handleStartBtn = {handleStartBtn}/>}

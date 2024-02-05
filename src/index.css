@@ -87,14 +87,14 @@ main{
   display: none;
 }
 .choice-radio.selected{
-  background-color: lightblue;
+  background-color: #D6DBF5;
 }
 button{
   width: 400px;
   height: 50px;
-  margin: 2rem auto 0 auto;
+  margin: 1rem auto 0 auto;
   padding: 0.5rem;
-  font-size: 10px;
+  font-size: 1rem;
   color: #F5F7FB;
   background-color: #4D5B9E;
   font-weight: 700;
