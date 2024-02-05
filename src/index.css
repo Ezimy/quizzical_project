@@ -5,13 +5,16 @@
 html,body{
   height: 100%;
 }
-body{
+body {
+  background-color: #F5F7FB;
+  background-image: url("/images/blob.png"), url("/images/yellow-blob.png");
+  background-repeat: no-repeat, no-repeat;
+  background-position: bottom left, top right;
   padding: 0;
   display: flex;
   flex-direction: column;
   text-align: center;
   align-items: center;
-  background: #F5F7FB;
   font-family: Karla;
 }
 main{
@@ -44,11 +47,23 @@ main{
   margin-bottom: 1.8125rem;
 }
 .start-screen > .select-container{
+  padding: 0.5rem;
+  gap: 0.25rem;
   display: flex;
+  flex-direction: column;
+}
+.start-screen .select-container .select-option{
+  font-weight: 700;
+  font-size: 1rem;
+  color: hsl(0, 0%, 20%);
+  text-align: center;
+  height: 50px;
+  width: 200px;
+  border-radius: 0.5rem;
 }
 .start-screen > button{
-  width: 12.0625rem;
-  height: 3.25rem;
+  width: 14rem;
+  height: 4rem;
   border: none;
   border-radius: 0.9375rem;
   background: #4D5B9E;
@@ -60,7 +75,7 @@ main{
 .questions-container{
   border-radius: 1rem;
   background-color: #f5feff;
-  border: 1px solid black;
+  border: 1px solid #293264;
   margin: 3rem 0;
   padding: 2rem;
   display: flex;

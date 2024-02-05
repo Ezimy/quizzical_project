@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 
 export default function Start(props) {
-  const [difficulty, setDifficulty] = useState('easy')
-  const [type, setType] = useState('multiple')
-  const [userInput, setUserInput] = useState(0)
+  const [difficultyDisplay, setDifficultyDisplay] = useState('easy')
+  const [typeDisplay, setTypeDisplay] = useState('multiple')
   const difficulties = [
     { value: 'easy', label: 'Easy' },
     { value: 'medium', label: 'Medium' },
@@ -17,19 +16,30 @@ export default function Start(props) {
   ]
 
   const handleDifficultyChange = (selectedOption) => {
-    setDifficulty(selectedOption)
+    setDifficultyDisplay(selectedOption)
     props.setDifficulty(selectedOption.value);
   }
 
   const handleTypeChange = (selectedOption) => {
-    setType(selectedOption)
+    setTypeDisplay(selectedOption)
     props.setType(selectedOption.value);
   }
   const handleNumberOfQuestionsChange = (event) => {
     const selectedValue = event.target.value
-    setUserInput(selectedValue)
-    props.setNumQuestions(event.target.value);
+    props.setNumQuestions(selectedValue);
   }
+  //custom styles for react-select elements
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      fontWeight: 400, 
+      fontSize: '1rem', 
+      width: 200,
+      height: 50,
+      borderRadius: '0.5rem',
+      fontFamily: 'Karla'
+    }),
+  };
 
   return (
     <div className="start-screen">
@@ -40,11 +50,25 @@ export default function Start(props) {
           className='select-option'
           type='number'
           placeholder='Number of Questions'
-          value={userInput}
+          value={props.numQuestions}
           onChange={handleNumberOfQuestionsChange}
         />
-        <Select className='select-option' options={difficulties} onChange={handleDifficultyChange} value={difficulty} />
-        <Select className='select-option' options={types} onChange={handleTypeChange} value={type} />
+        <Select
+          placeholder='Select Difficulty'
+          className='select-option'
+          options={difficulties}
+          onChange={handleDifficultyChange}
+          value={difficultyDisplay}
+          styles={customStyles}
+        />
+        <Select
+          placeholder='Select Type'
+          className='select-option'
+          options={types}
+          onChange={handleTypeChange}
+          value={typeDisplay}
+          styles={customStyles}
+        />
       </div>
       <button onClick={props.handleStartBtn}>Start Quiz</button>
     </div>

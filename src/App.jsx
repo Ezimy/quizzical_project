@@ -7,7 +7,7 @@ import '/src/index.css';
 export default function App() {
   //useStates
   const [started, setStarted] = useState(false);
-  const [numQuestions, setNumQuestions] = useState(0)
+  const [numQuestions, setNumQuestions] = useState(null)
   const [difficulty, setDifficulty] = useState('');
   const [type, setType] = useState('');
   const [questions, setQuestions] = useState([])
@@ -122,6 +122,9 @@ export default function App() {
         }
       </form>
       : <Start
+      numQuestions = {numQuestions}
+      difficulty = {difficulty}
+      type = {type}
       handleStartBtn={handleStartBtn}
       setNumQuestions = {setNumQuestions}
       setDifficulty={setDifficulty}
