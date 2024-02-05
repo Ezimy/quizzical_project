@@ -7,11 +7,13 @@ import '/src/index.css';
 export default function App() {
   //useStates
   const [started, setStarted] = useState(false);
+  const [numQuestions, setNumQuestions] = useState(0)
+  const [difficulty, setDifficulty] = useState('');
+  const [type, setType] = useState('');
   const [questions, setQuestions] = useState([])
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0)
   const [isSubmitted, setIsSubmitted] = useState(false)
-
 
   //useEffects
   useEffect(() => {
@@ -37,7 +39,13 @@ export default function App() {
 
   //Handle functions
   function fetchQuestions() {
-    fetch('https://opentdb.com/api.php?amount=5&type=multiple')
+    const apiUrl =
+    'https://opentdb.com/api.php' +
+    `?amount=${numQuestions > 0 ? numQuestions : ''}` +
+    `${difficulty ? `&difficulty=${difficulty}` : ''}` +
+    `${type ? `&type=${type}` : ''}`;
+    console.log(apiUrl)
+    fetch(apiUrl)
       .then((res) => res.json())
       .then((data) => {
         const questionsWithShuffledAnswers = data.results.map((question) => {
@@ -83,7 +91,7 @@ export default function App() {
     return array;
   }
 
-  
+
   //creating question Elements for question container
   const questionElements = questions.map((question, index) => (
     <Question
@@ -113,7 +121,12 @@ export default function App() {
           (<button className="submit"type='submit'>Check Answers</button>)
         }
       </form>
-      : <Start handleStartBtn = {handleStartBtn}/>}
+      : <Start
+      handleStartBtn={handleStartBtn}
+      setNumQuestions = {setNumQuestions}
+      setDifficulty={setDifficulty}
+      setType={setType}/>
+      }
     </main>
     )
 }

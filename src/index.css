@@ -15,32 +15,36 @@ body{
   font-family: Karla;
 }
 main{
+  padding: 1rem;
+  width: 100%;
+  height: auto;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .start-screen{
+  padding: 2rem;
   display: flex;
   text-align: center;
   flex-direction: column;
   align-items: center;
 }
 .start-screen > h1 {
-  width: 25.75rem;
-  height: 2.5625rem;
   color: #293264;
-  font-size: 1.95313rem;
+  margin-bottom: 0.5rem;
+  font-size: 3.5rem;
   font-weight: 700;
 }
 .start-screen > p {
-  width: 19.875rem;
-  height: 1.1875rem;
   color: #293264;
   font-family: Inter;
   font-size: 1rem;
   font-weight: 400;
   margin-bottom: 1.8125rem;
+}
+.start-screen > .select-container{
+  display: flex;
 }
 .start-screen > button{
   width: 12.0625rem;
@@ -54,20 +58,23 @@ main{
   font-weight: 500;
 }
 .questions-container{
+  border-radius: 1rem;
+  background-color: #f5feff;
+  border: 1px solid black;
   margin: 3rem 0;
-  padding: 0.25rem;
+  padding: 2rem;
   display: flex;
   align-items: start;
   flex-direction: column;
-  width: 80%;
 }
 .question{
   text-align: left;
   width: 100%;
   padding: 1rem;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #DBDEF0;
 }
 .question > h1{
+  margin-bottom: 0.5rem;
   font-size: 1rem;
 }
 .answers{
@@ -79,6 +86,7 @@ main{
   color: #293264;
   padding: 0.5rem;
   border-radius: 0.5rem;
+  background-color: #fff;
   border: 1px solid #4D5B9E;
   cursor: pointer;
 }
@@ -92,7 +100,7 @@ main{
 button{
   width: 400px;
   height: 50px;
-  margin: 1rem auto 0 auto;
+  margin: 1rem auto;
   padding: 0.5rem;
   font-size: 1rem;
   color: #F5F7FB;
